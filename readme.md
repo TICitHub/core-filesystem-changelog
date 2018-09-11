@@ -3,13 +3,13 @@ Filesystem Changelog Adapter for @navarik/storage
 
 ## Installation
 ```
-npm install @navarik/storage-filesystem-changelog --save
+npm install refdata-storage-filesystem-changelog --save
 ```
 
 ## Usage example
 ```javascript
-import ChangelogAdapter from '@navarik/storage-filesystem-changelog'
-import createStorage from '@navarik/storage'
+import ChangelogAdapter from 'refdata-storage-filesystem-changelog'
+import createStorage from 'refdata-storage'
 
 const log = new ChangelogAdapter({
   workingDirectory: '/var/storage',
