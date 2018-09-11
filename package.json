@@ -1,5 +1,5 @@
 {
-  "name": "@navarik/storage-filesystem-changelog",
+  "name": "@ticithub/storage-filesystem-changelog",
   "description": "Filesystem Changelog Adapter for @navarik/storage",
   "version": "2.1.3",
   "scripts": {
@@ -15,7 +15,7 @@
     "node": ">=4.0",
     "npm": ">=2.0"
   },
-  "license": "Proprietary",
+  "license": "Apache 2.0",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
