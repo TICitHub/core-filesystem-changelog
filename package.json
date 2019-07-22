@@ -9,7 +9,7 @@
   "author": "Navarik Corp.",
   "dependencies": {
     "array-flatten": "^2.1.1",
-    "file-extension": "^4.0.2"
+    "file-extension": "^4.0.5"
   },
   "engines": {
     "node": ">=4.0",
