@@ -18,6 +18,7 @@ var FilesystemChangelogAdapter = function () {
 
     this.workingDirectory = config.workingDirectory;
     this.format = config.format;
+    this.latestOnly = !!config.latestOnly;
     this.readOnly = config.readOnly !== undefined ? config.readOnly : true;
     this.listener = function () {};
   }
@@ -34,8 +35,12 @@ var FilesystemChangelogAdapter = function () {
         throw new Error('[FilesystemChangelogAdapter] This adapter is read-only');
       }
 
-      (0, _filesystem.createDirectory)(this.workingDirectory + '/' + data.type + '/' + data.id);
-      (0, _filesystem.writeFile)(this.workingDirectory + '/' + data.type + '/' + data.id + '/' + data.version_id + '.' + this.format, data);
+      if (this.latestOnly) {
+        (0, _filesystem.writeFile)(this.workingDirectory + '/' + data.type + '/' + data.id + '.' + this.format, data);
+      } else {
+        (0, _filesystem.createDirectory)(this.workingDirectory + '/' + data.type + '/' + data.id);
+        (0, _filesystem.writeFile)(this.workingDirectory + '/' + data.type + '/' + data.id + '/' + data.version_id + '.' + this.format, data);
+      }
 
       return this.listener(data);
     }

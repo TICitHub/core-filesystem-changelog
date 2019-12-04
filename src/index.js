@@ -4,6 +4,7 @@ class FilesystemChangelogAdapter {
   constructor(config) {
     this.workingDirectory = config.workingDirectory
     this.format = config.format
+    this.latestOnly = !!config.latestOnly
     this.readOnly = config.readOnly !== undefined ? config.readOnly : true
     this.listener = () => {}
   }
@@ -17,8 +18,12 @@ class FilesystemChangelogAdapter {
       throw new Error('[FilesystemChangelogAdapter] This adapter is read-only')
     }
 
-    createDirectory(`${this.workingDirectory}/${data.type}/${data.id}`)
-    writeFile(`${this.workingDirectory}/${data.type}/${data.id}/${data.version_id}.${this.format}`, data)
+    if (this.latestOnly) {
+      writeFile(`${this.workingDirectory}/${data.type}/${data.id}.${this.format}`, data)
+    } else {
+      createDirectory(`${this.workingDirectory}/${data.type}/${data.id}`)
+      writeFile(`${this.workingDirectory}/${data.type}/${data.id}/${data.version_id}.${this.format}`, data)
+    }
 
     return this.listener(data)
   }
