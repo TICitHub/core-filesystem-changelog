@@ -10,7 +10,7 @@ export const writeFile = (path, data) => {
 
 export const createDirectory = (path) => {
   if (!fs.existsSync(path)) {
-    fs.mkdirSync(path)
+    fs.mkdirSync(path, { recursive: true })
   }
 }
 
@@ -19,8 +19,9 @@ export const readFile = (path) => {
   return parse(fileExtension(path), content)
 }
 
-export const getFileNames = (directory) =>
-  flatten(
+export const getFileNames = (directory) => {
+  createDirectory(directory)
+  return flatten(
     fs.readdirSync(directory)
       .filter(name => name[0] !== '.')
       .map(name => {
@@ -32,6 +33,7 @@ export const getFileNames = (directory) =>
         return location
       })
   )
+}
 
 export const readAllFiles = (path, format) => {
   const result = []

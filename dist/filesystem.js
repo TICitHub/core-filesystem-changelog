@@ -33,7 +33,7 @@ var writeFile = exports.writeFile = function writeFile(path, data) {
 
 var createDirectory = exports.createDirectory = function createDirectory(path) {
   if (!_fs2.default.existsSync(path)) {
-    _fs2.default.mkdirSync(path);
+    _fs2.default.mkdirSync(path, { recursive: true });
   }
 };
 
@@ -43,6 +43,7 @@ var readFile = exports.readFile = function readFile(path) {
 };
 
 var getFileNames = exports.getFileNames = function getFileNames(directory) {
+  createDirectory(directory);
   return (0, _arrayFlatten2.default)(_fs2.default.readdirSync(directory).filter(function (name) {
     return name[0] !== '.';
   }).map(function (name) {

@@ -12,14 +12,14 @@
   "main": "dist",
   "author": "Navarik Corp.",
   "dependencies": {
-    "array-flatten": "^2.1.1",
+    "array-flatten": "^2.1.2",
     "file-extension": "^4.0.5"
   },
   "engines": {
     "node": ">=4.0",
     "npm": ">=2.0"
   },
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
