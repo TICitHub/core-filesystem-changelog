@@ -1,7 +1,7 @@
 {
   "name": "refdata-storage-filesystem-changelog",
   "description": "Filesystem Changelog Adapter for @navarik/storage",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "scripts": {
     "build": "rm -rf dist/* && babel src --out-dir dist"
   },
