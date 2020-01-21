@@ -10,11 +10,13 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+dist/
 
 # local config
 #
 .env
 *.sqlite
+.vscode
 
 # BUCK
 buck-out/

@@ -8,13 +8,13 @@ npm install refdata-storage-filesystem-changelog --save
 
 ## Usage example
 ```javascript
-import ChangelogAdapter from 'refdata-storage-filesystem-changelog'
-import createStorage from 'refdata-storage'
+import { FilesystemChangelog } from '@navarik/storage-filesystem-changelog'
+import { Storage } from '@navarikstorage'
 
-const log = new ChangelogAdapter({
+const changelog = new FilesystemChangelog({
   workingDirectory: '/var/storage',
   format: 'json'
 })
 
-const storage = createStorage({ log })
+const storage = new Storage({ changelog })
 ```
