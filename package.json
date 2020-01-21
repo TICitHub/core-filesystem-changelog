@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git@github.com:TICitHub/storage-filesystem-changelog.git"
   },
-  "main": "dist",
+  "main": "dist/index.js",
   "author": "Navarik Corp.",
   "dependencies": {
     "array-flatten": "^2.1.2",
