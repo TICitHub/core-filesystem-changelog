@@ -1,7 +1,7 @@
 import { ChangeEvent } from '@navarik/storage'
 
 export interface Partitioner {
-  getPartition(event: ChangeEvent): string
+  getPartitionKey(event: ChangeEvent): string
 }
 
 export interface Formatter {

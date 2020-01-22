@@ -6,6 +6,8 @@ import { Partitioner, Formatter } from './types'
 import { DefaultPartitioner } from './default-partitioner'
 import { JsonlogFormatter } from './jsonlog-formatter'
 
+export * from "./types"
+
 type FilesystemChangelogConfig = {
   workingDirectory: string
   formater?: Formatter
@@ -62,7 +64,7 @@ export class FilesystemChangelog implements Changelog {
   }
 
   async write(event: ChangeEvent) {
-    const partition = this.partitioner.getPartition(event)
+    const partition = this.partitioner.getPartitionKey(event)
     const extension = this.formater.fileExtension
     const fileName = `${this.workingDirectory}/${partition}.${extension}`
 
