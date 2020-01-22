@@ -1,7 +1,7 @@
 {
   "name": "@navarik/storage-filesystem-changelog",
   "description": "Filesystem Changelog Adapter for @navarik/storage",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "scripts": {
     "build": "rm -rf dist && tsc -d",
     "test": "ts-mocha test/**/*.test.ts"
