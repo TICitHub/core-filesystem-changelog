@@ -78,7 +78,7 @@ export class FilesystemChangelog implements Changelog {
     const completes = files.map((file) => new Promise((resolve) => {
       const stream = fs.createReadStream(`${this.workingDirectory}/${file}`)
       const reader = readline.createInterface(stream)
-      reader.on('line', line => this.onEvent(this.formater.parse(line)))
+      reader.on('line', async (line) => { await this.onEvent(this.formater.parse(line)) })
       reader.on('close', resolve)
     }))
 
