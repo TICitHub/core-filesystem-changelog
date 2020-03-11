@@ -1,6 +1,5 @@
 import fs from 'fs'
 import readline from 'readline'
-import { PassThrough } from "stream"
 import { Changelog, Observer, ChangeEvent } from '@navarik/storage'
 import { Map } from '@navarik/types'
 import { Partitioner, Formatter } from './types'
@@ -13,15 +12,6 @@ type FilesystemChangelogConfig = {
   workingDirectory: string
   formater?: Formatter
   partitioner?: Partitioner
-}
-
-function readLines(input) {
-  const output = new PassThrough({ objectMode: true })
-  const rl = readline.createInterface({ input })
-  rl.on("line", line => { output.write(line) })
-  rl.on("close", () => { output.push(null) })
-
-  return output
 }
 
 export class FilesystemChangelog implements Changelog {
@@ -87,7 +77,8 @@ export class FilesystemChangelog implements Changelog {
     const files = fs.readdirSync(this.workingDirectory)
     const completes = files.map(async (file) => {
       const stream = fs.createReadStream(`${this.workingDirectory}/${file}`)
-      for await (const line of readLines(stream)) {
+      const rl = readline.createInterface({ input: stream, crlfDelay: Infinity })
+      for await (const line of rl) {
         await this.onEvent(this.formater.parse(line))
       }
     })
