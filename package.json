@@ -1,7 +1,7 @@
 {
   "name": "@navarik/storage-filesystem-changelog",
   "description": "Filesystem Changelog Adapter for @navarik/storage",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "scripts": {
     "build": "rm -rf dist && tsc -d",
     "prepublishOnly": "npm run build",
