@@ -8,6 +8,6 @@ export class DefaultPartitioner implements Partitioner<any> {
 
   getPartitionKey() {
     // Send all events to the same partition
-    return 'changelog'
+    return 'events'
   }
 }
