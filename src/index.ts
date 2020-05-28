@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from "path"
 import readline from 'readline'
 import { EventLog, Map, Logger } from '@navarik/types'
 import { Partitioner, Formatter, Observer } from './types'
@@ -10,6 +11,7 @@ export * from "./types"
 
 type FilesystemChangelogConfig<T> = {
   workingDirectory: string
+  topic: string
   logger?: Logger
   formatter?: Formatter<T>
   partitioner?: Partitioner<T>|string
@@ -26,7 +28,7 @@ export class FilesystemEventLog<T> implements EventLog<T> {
   constructor(config: FilesystemChangelogConfig<T>) {
     this.logger = config.logger || defaultLogger
     this.formatter = config.formatter || new JsonlogFormatter()
-    this.workingDirectory = config.workingDirectory
+    this.workingDirectory = path.join(config.workingDirectory, config.topic)
     this.streams = {}
     this.observer = null
 
