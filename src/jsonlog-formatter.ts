@@ -1,7 +1,7 @@
 import { Formatter } from "./types"
 
 export class JsonlogFormatter implements Formatter<object> {
-  fileExtension: string = 'jsonlog'
+  fileExtension: string = 'jsonl'
 
   format(event) {
     return JSON.stringify(event)
