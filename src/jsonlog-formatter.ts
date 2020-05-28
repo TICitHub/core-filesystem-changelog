@@ -1,6 +1,6 @@
 import { Formatter } from "./types"
 
-export class JsonlogFormatter implements Formatter {
+export class JsonlogFormatter implements Formatter<object> {
   fileExtension: string = 'jsonlog'
 
   format(event) {

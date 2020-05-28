@@ -1,11 +1,11 @@
-import { ChangeEvent } from '@navarik/storage'
-
-export interface Partitioner {
-  getPartitionKey(event: ChangeEvent): string
+export interface Partitioner<T> {
+  getPartitionKey(event: T): string
 }
 
-export interface Formatter {
+export interface Formatter<T> {
   fileExtension: string
-  format(event: ChangeEvent): string
-  parse(chunk: string): ChangeEvent
+  format(event: T): string
+  parse(chunk: string): T
 }
+
+export type Observer<T> = (event: T) => void|Promise<void>

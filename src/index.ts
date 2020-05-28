@@ -1,32 +1,37 @@
 import fs from 'fs'
 import readline from 'readline'
-import { Changelog, Observer, ChangeEvent } from '@navarik/storage'
-import { Map } from '@navarik/types'
-import { Partitioner, Formatter } from './types'
-import { DefaultPartitioner } from './default-partitioner'
+import { EventLog, Map, Logger } from '@navarik/types'
+import { Partitioner, Formatter, Observer } from './types'
+import { PartitionerFactory } from './partitioner'
 import { JsonlogFormatter } from './jsonlog-formatter'
+import { defaultLogger } from "./default-logger"
 
 export * from "./types"
 
-type FilesystemChangelogConfig = {
+type FilesystemChangelogConfig<T> = {
   workingDirectory: string
-  formater?: Formatter
-  partitioner?: Partitioner
+  logger?: Logger
+  formatter?: Formatter<T>
+  partitioner?: Partitioner<T>
 }
 
-export class FilesystemChangelog implements Changelog {
+export class FilesystemEventLog<T> implements EventLog<T> {
   private workingDirectory: string
-  private formater: Formatter
-  private partitioner: Partitioner
-  private observer: Observer|null
+  private formatter: Formatter<T>
+  private partitioner: Partitioner<T>
+  private observer: Observer<T>|null
   private streams: Map<fs.WriteStream>
+  private logger: Logger
 
-  constructor(config: FilesystemChangelogConfig) {
-    this.formater = config.formater || new JsonlogFormatter()
-    this.observer = null
-    this.partitioner = config.partitioner || new DefaultPartitioner()
+  constructor(config: FilesystemChangelogConfig<T>) {
+    this.logger = config.logger || defaultLogger
+    this.formatter = config.formatter || new JsonlogFormatter()
     this.workingDirectory = config.workingDirectory
     this.streams = {}
+    this.observer = null
+
+    const partitionerFactory = new PartitionerFactory({ logger: this.logger })
+    this.partitioner = partitionerFactory.create(config.partitioner)
   }
 
   private getFileStream(name: string) {
@@ -63,23 +68,25 @@ export class FilesystemChangelog implements Changelog {
     }
   }
 
-  async write(event: ChangeEvent) {
+  async write(event: T) {
     const partition = this.partitioner.getPartitionKey(event)
-    const extension = this.formater.fileExtension
+    const extension = this.formatter.fileExtension
     const fileName = `${this.workingDirectory}/${partition}.${extension}`
 
-    this.getFileStream(fileName).write(this.formater.format(event)+ "\n")
+    this.getFileStream(fileName).write(this.formatter.format(event)+ "\n")
 
     await this.onEvent(event)
   }
 
-  async reset() {
+  async readAll() {
+    await this.up()
+
     const files = fs.readdirSync(this.workingDirectory)
     const completes = files.map(async (file) => {
       const stream = fs.createReadStream(`${this.workingDirectory}/${file}`)
       const rl = readline.createInterface({ input: stream, crlfDelay: Infinity })
       for await (const line of rl) {
-        await this.onEvent(this.formater.parse(line))
+        await this.onEvent(this.formatter.parse(line))
       }
     })
 

@@ -1,7 +1,7 @@
 {
-  "name": "@navarik/storage-filesystem-changelog",
-  "description": "Filesystem Changelog Adapter for @navarik/storage",
-  "version": "4.0.6",
+  "name": "@navarik/core-filesystem-eventlog",
+  "description": "Filesystem adapter for Core event logs",
+  "version": "0.0.0",
   "scripts": {
     "build": "rm -rf dist && tsc -d",
     "prepublishOnly": "npm run build",
@@ -9,22 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:TICitHub/storage-filesystem-changelog.git"
+    "url": "git@github.com:TICitHub/core-filesystem-eventlog.git"
   },
   "main": "dist/index.js",
   "author": "Navarik Corp.",
+  "license": "UNLICENCED",
   "dependencies": {
     "array-flatten": "^3.0.0",
-    "file-extension": "^4.0.5"
+    "file-extension": "^4.0.5",
+    "object-path": "^0.11.4"
   },
   "engines": {
     "node": ">=4.0",
     "npm": ">=2.0"
   },
-  "license": "Apache-2.0",
   "devDependencies": {
-    "@navarik/storage": "^10.4.2",
-    "@navarik/types": "^4.0.0",
+    "@navarik/types": "^5.1.0",
     "@types/expect.js": "^0.3.29",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.0",
