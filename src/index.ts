@@ -12,7 +12,7 @@ type FilesystemChangelogConfig<T> = {
   workingDirectory: string
   logger?: Logger
   formatter?: Formatter<T>
-  partitioner?: Partitioner<T>
+  partitioner?: Partitioner<T>|string
 }
 
 export class FilesystemEventLog<T> implements EventLog<T> {
