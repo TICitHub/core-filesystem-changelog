@@ -1,7 +1,7 @@
 {
   "name": "@navarik/core-filesystem-eventlog",
   "description": "Filesystem adapter for Core event logs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "rm -rf dist && tsc -d",
     "prepublishOnly": "npm run build",
