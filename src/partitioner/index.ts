@@ -20,6 +20,9 @@ export class PartitionerFactory<T> {
     if (type === "default") {
       return new DefaultPartitioner(this.logger)
     }
+    if (type === "random") {
+      return new DefaultPartitioner(this.logger)
+    }
     if (type === "key") {
       return new KeyPartitioner<T>(key, this.logger)
     }
