@@ -27,7 +27,7 @@ export class FilesystemEventLog<T> implements EventLog<T> {
   constructor(config: FilesystemEventlogConfig<T>) {
     this.logger = config.logger
     this.formatter = config.formatter || new JsonlogFormatter()
-    this.workingDirectory = path.join(config.workingDirectory, config.topic)
+    this.workingDirectory = path.resolve(process.cwd(), config.workingDirectory, config.topic)
     this.streams = {}
     this.observer = null
 
