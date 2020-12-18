@@ -1,3 +1,2 @@
-# @navarik/core-filesystem-eventlog
-
-Filesystem adapter for Core event logs
+# @navarik/core-filesystem-changelog
+Filesystem adapter for Core changelogs
