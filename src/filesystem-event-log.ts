@@ -1,10 +1,11 @@
-import fs from 'fs'
+import fs from "fs"
 import path from "path"
-import readline from 'readline'
-import { EventLog, Map, Logger } from '@navarik/types'
-import { Partitioner, Formatter, Observer } from './types'
-import { PartitionerFactory } from './partitioner'
-import { JsonlogFormatter } from './jsonlog-formatter'
+import readline from "readline"
+import mkdirp from "mkdirp"
+import { EventLog, Map, Logger } from "@navarik/types"
+import { Partitioner, Formatter, Observer } from "./types"
+import { PartitionerFactory } from "./partitioner"
+import { JsonlogFormatter } from "./jsonlog-formatter"
 
 export * from "./types"
 
@@ -31,17 +32,13 @@ export class FilesystemEventLog<T> implements EventLog<T> {
     this.streams = {}
     this.observer = null
 
-    if (!fs.existsSync(this.workingDirectory)) {
-      fs.mkdirSync(this.workingDirectory)
-    }
-
     const partitionerFactory = new PartitionerFactory({ logger: this.logger })
     this.partitioner = partitionerFactory.create(config.partitioner)
   }
 
   private getFileStream(name: string) {
     if (!this.streams[name]) {
-      this.streams[name] = fs.createWriteStream(name, { flags: 'a' })
+      this.streams[name] = fs.createWriteStream(name, { flags: "a" })
     }
 
     return this.streams[name]
@@ -49,7 +46,7 @@ export class FilesystemEventLog<T> implements EventLog<T> {
 
   async up() {
     if (!fs.existsSync(this.workingDirectory)) {
-      fs.mkdirSync(this.workingDirectory, { recursive: true })
+      await mkdirp(this.workingDirectory)
     }
   }
 
