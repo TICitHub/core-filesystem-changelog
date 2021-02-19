@@ -1,7 +1,7 @@
 {
   "name": "@navarik/core-filesystem-changelog",
   "description": "Filesystem adapter for Core changelogs",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "scripts": {
     "build": "rm -rf dist && tsc -d",
     "prepublishOnly": "npm run build",
