@@ -31,6 +31,10 @@ export class FilesystemEventLog<T> implements EventLog<T> {
     this.streams = {}
     this.observer = null
 
+    if (!fs.existsSync(this.workingDirectory)) {
+      fs.mkdirSync(this.workingDirectory)
+    }
+
     const partitionerFactory = new PartitionerFactory({ logger: this.logger })
     this.partitioner = partitionerFactory.create(config.partitioner)
   }
